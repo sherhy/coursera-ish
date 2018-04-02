@@ -1,0 +1,169 @@
+  [1m[36m (1.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.3ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreatePeople (20150908214851)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (1.3ms)[0m  [1mCREATE TABLE "people" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar, "age" integer, "last_name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150908214851"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+Migrating to AddLoginPassToPeople (20150908221446)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "people" ADD "login" varchar[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "people" ADD "pass" varchar
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150908221446"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+Migrating to CreatePersonalInfos (20150908232650)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "personal_infos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "height" float, "weight" float, "person_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_personal_infos_on_person_id" ON "personal_infos" ("person_id")
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150908232650"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+Migrating to CreateJobs (20150922141356)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "jobs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "company" varchar, "position_id" varchar, "person_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_jobs_on_person_id" ON "jobs" ("person_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150922141356"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+Migrating to CreateHobbies (20150922154738)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.6ms)[0m  [1mCREATE TABLE "hobbies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150922154738"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+Migrating to CreateHobbiesPeople (20150922154813)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.6ms)[0m  [1mCREATE TABLE "hobbies_people" ("person_id" integer, "hobby_id" integer) [0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_hobbies_people_on_person_id" ON "hobbies_people" ("person_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_hobbies_people_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_hobbies_people_on_person_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_hobbies_people_on_hobby_id" ON "hobbies_people" ("hobby_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150922154813"]]
+  [1m[35m (1.2ms)[0m  commit transaction
+Migrating to CreateSalaryRanges (20150922165025)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "salary_ranges" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "min_salary" float, "max_salary" float, "job_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_salary_ranges_on_job_id" ON "salary_ranges" ("job_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150922165025"]]
+  [1m[36m (1.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_hobbies_people_on_hobby_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_hobbies_people_on_hobby_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_hobbies_people_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_hobbies_people_on_person_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_jobs_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_jobs_on_person_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_personal_infos_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_personal_infos_on_person_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_salary_ranges_on_job_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_salary_ranges_on_job_id' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mJob Load (0.2ms)[0m  SELECT "jobs".* FROM "jobs"
+  [1m[36mPerson Load (0.2ms)[0m  [1mSELECT "people".* FROM "people"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "people" ("first_name", "last_name", "age", "login", "pass", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Kalman"], ["last_name", "Smith"], ["age", 33], ["login", "kman"], ["pass", "abc123"], ["created_at", "2018-03-19 18:05:01.987960"], ["updated_at", "2018-03-19 18:05:01.987960"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "people" ("first_name", "last_name", "age", "login", "pass", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)  [["first_name", "John"], ["last_name", "Whatever"], ["age", 27], ["login", "john1"], ["pass", "123abc"], ["created_at", "2018-03-19 18:05:01.992721"], ["updated_at", "2018-03-19 18:05:01.992721"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "people" ("first_name", "last_name", "age", "login", "pass", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Michael"], ["last_name", "Smith"], ["age", 15], ["login", "mike"], ["pass", "not_telling"], ["created_at", "2018-03-19 18:05:01.995879"], ["updated_at", "2018-03-19 18:05:01.995879"]]
+  [1m[35m (0.9ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "people" ("first_name", "last_name", "age", "login", "pass", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)  [["first_name", "Josh"], ["last_name", "Oreck"], ["age", 57], ["login", "josh"], ["pass", "password1"], ["created_at", "2018-03-19 18:05:01.998627"], ["updated_at", "2018-03-19 18:05:01.998627"]]
+  [1m[36m (1.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "people" ("first_name", "last_name", "age", "login", "pass", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "John"], ["last_name", "Smith"], ["age", 27], ["login", "john2"], ["pass", "no_idea"], ["created_at", "2018-03-19 18:05:02.002279"], ["updated_at", "2018-03-19 18:05:02.002279"]]
+  [1m[35m (1.0ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "people" ("first_name", "last_name", "age", "login", "pass", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)  [["first_name", "Bill"], ["last_name", "Gates"], ["age", 75], ["login", "bill"], ["pass", "windows3.1"], ["created_at", "2018-03-19 18:05:02.005765"], ["updated_at", "2018-03-19 18:05:02.005765"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "people" ("first_name", "last_name", "age", "login", "pass", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "LeBron"], ["last_name", "James"], ["age", 30], ["login", "bron"], ["pass", "need more rings"], ["created_at", "2018-03-19 18:05:02.009839"], ["updated_at", "2018-03-19 18:05:02.009839"]]
+  [1m[35m (0.9ms)[0m  commit transaction
+  [1m[36mPerson Load (0.3ms)[0m  [1mSELECT  "people".* FROM "people" WHERE "people"."first_name" = ? LIMIT 1[0m  [["first_name", "Kalman"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "personal_infos" ("height", "weight", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["height", 6.0], ["weight", 210.0], ["person_id", 1], ["created_at", "2018-03-19 18:05:02.101765"], ["updated_at", "2018-03-19 18:05:02.101765"]]
+  [1m[35m (0.9ms)[0m  commit transaction
+  [1m[36mPersonalInfo Load (0.2ms)[0m  [1mSELECT  "personal_infos".* FROM "personal_infos" WHERE "personal_infos"."person_id" = ? LIMIT 1[0m  [["person_id", 1]]
+  [1m[35mPerson Load (0.2ms)[0m  SELECT  "people".* FROM "people" WHERE "people"."first_name" = ? AND "people"."last_name" = ? LIMIT 1  [["first_name", "John"], ["last_name", "Whatever"]]
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "personal_infos" ("height", "weight", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["height", 5.3], ["weight", 175.0], ["person_id", 2], ["created_at", "2018-03-19 18:05:02.106310"], ["updated_at", "2018-03-19 18:05:02.106310"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+  [1m[35mPersonalInfo Load (0.1ms)[0m  SELECT  "personal_infos".* FROM "personal_infos" WHERE "personal_infos"."person_id" = ? LIMIT 1  [["person_id", 2]]
+  [1m[36mPerson Load (0.1ms)[0m  [1mSELECT  "people".* FROM "people" WHERE "people"."first_name" = ? LIMIT 1[0m  [["first_name", "Michael"]]
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "personal_infos" ("height", "weight", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["height", 5.5], ["weight", 200.0], ["person_id", 3], ["created_at", "2018-03-19 18:05:02.110423"], ["updated_at", "2018-03-19 18:05:02.110423"]]
+  [1m[35m (1.0ms)[0m  commit transaction
+  [1m[36mPersonalInfo Load (0.1ms)[0m  [1mSELECT  "personal_infos".* FROM "personal_infos" WHERE "personal_infos"."person_id" = ? LIMIT 1[0m  [["person_id", 3]]
+  [1m[35mPerson Load (0.1ms)[0m  SELECT  "people".* FROM "people" WHERE "people"."first_name" = ? LIMIT 1  [["first_name", "Josh"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "personal_infos" ("height", "weight", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["height", 6.5], ["weight", 235.0], ["person_id", 4], ["created_at", "2018-03-19 18:05:02.114398"], ["updated_at", "2018-03-19 18:05:02.114398"]]
+  [1m[36m (1.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mPersonalInfo Load (0.1ms)[0m  SELECT  "personal_infos".* FROM "personal_infos" WHERE "personal_infos"."person_id" = ? LIMIT 1  [["person_id", 4]]
+  [1m[36mPerson Load (0.1ms)[0m  [1mSELECT  "people".* FROM "people" WHERE "people"."first_name" = ? AND "people"."last_name" = ? LIMIT 1[0m  [["first_name", "John"], ["last_name", "Smith"]]
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "personal_infos" ("height", "weight", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["height", 6.0], ["weight", 210.0], ["person_id", 5], ["created_at", "2018-03-19 18:05:02.119004"], ["updated_at", "2018-03-19 18:05:02.119004"]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36mPersonalInfo Load (0.2ms)[0m  [1mSELECT  "personal_infos".* FROM "personal_infos" WHERE "personal_infos"."person_id" = ? LIMIT 1[0m  [["person_id", 5]]
+  [1m[35mPerson Load (0.1ms)[0m  SELECT  "people".* FROM "people" WHERE "people"."first_name" = ? LIMIT 1  [["first_name", "Bill"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "personal_infos" ("height", "weight", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["height", 6.1], ["weight", 199.0], ["person_id", 6], ["created_at", "2018-03-19 18:05:02.124504"], ["updated_at", "2018-03-19 18:05:02.124504"]]
+  [1m[36m (1.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mPersonalInfo Load (0.2ms)[0m  SELECT  "personal_infos".* FROM "personal_infos" WHERE "personal_infos"."person_id" = ? LIMIT 1  [["person_id", 6]]
+  [1m[36mPerson Load (0.1ms)[0m  [1mSELECT  "people".* FROM "people" WHERE "people"."first_name" = ? LIMIT 1[0m  [["first_name", "LeBron"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "personal_infos" ("height", "weight", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["height", 7.0], ["weight", 250.0], ["person_id", 7], ["created_at", "2018-03-19 18:05:02.130192"], ["updated_at", "2018-03-19 18:05:02.130192"]]
+  [1m[35m (1.1ms)[0m  commit transaction
+  [1m[36mPersonalInfo Load (0.1ms)[0m  [1mSELECT  "personal_infos".* FROM "personal_infos" WHERE "personal_infos"."person_id" = ? LIMIT 1[0m  [["person_id", 7]]
+  [1m[35mPerson Load (0.2ms)[0m  SELECT  "people".* FROM "people"  ORDER BY "people"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (1.6ms)[0m  INSERT INTO "jobs" ("title", "company", "position_id", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["title", "Developer"], ["company", "MS"], ["position_id", "#1234"], ["person_id", 1], ["created_at", "2018-03-19 18:05:02.170591"], ["updated_at", "2018-03-19 18:05:02.170591"]]
+  [1m[36m (6.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "jobs" ("title", "company", "position_id", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Developer"], ["company", "MS"], ["position_id", "#1235"], ["person_id", 1], ["created_at", "2018-03-19 18:05:02.181174"], ["updated_at", "2018-03-19 18:05:02.181174"]]
+  [1m[35m (1.0ms)[0m  commit transaction
+  [1m[36mPerson Load (0.2ms)[0m  [1mSELECT  "people".* FROM "people"  ORDER BY "people"."id" DESC LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "jobs" ("title", "company", "position_id", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Sr. Developer"], ["company", "MS"], ["position_id", "#5234"], ["person_id", 7], ["created_at", "2018-03-19 18:05:02.185388"], ["updated_at", "2018-03-19 18:05:02.185388"]]
+  [1m[35m (0.9ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "jobs" ("title", "company", "position_id", "person_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["title", "Sr. Developer"], ["company", "MS"], ["position_id", "#5235"], ["person_id", 7], ["created_at", "2018-03-19 18:05:02.188110"], ["updated_at", "2018-03-19 18:05:02.188110"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
