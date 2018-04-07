@@ -1,0 +1,1 @@
+mongoimport -d m101js -c students3-2 --drop --file ./student.json
