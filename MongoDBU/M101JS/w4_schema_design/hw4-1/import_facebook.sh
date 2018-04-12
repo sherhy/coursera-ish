@@ -1,0 +1,1 @@
+mongoimport -d crunchbase -c facebook --drop --file ./facebook.json
