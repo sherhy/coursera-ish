@@ -26,6 +26,11 @@ public class Percolation {
 
 	public     int numberOfOpenSites()   {   // number of open sites
 		// return tree.count();
+		int count = 0;
+		for (int i = 0; i < tree.length; i++) {
+			//count
+			if (tree[i] == 1) count ++ ;
+		}
 		return 1;
 	}
 
@@ -36,7 +41,8 @@ public class Percolation {
 	public static void main(String[] args){	 // test client (optional)
 		Percolation uf = new Percolation(3);
 		uf.open(2,2);
-		System.out.println(uf.isOpen(2,2));
-		System.out.println(uf.isOpen(1,2));
+		// System.out.println(uf.isOpen(2,2));
+		// System.out.println(uf.isOpen(1,2));
+		System.out.println(uf.numberOfOpenSites());
 	}   
 }
